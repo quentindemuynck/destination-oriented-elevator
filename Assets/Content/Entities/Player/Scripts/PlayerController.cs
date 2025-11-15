@@ -18,6 +18,7 @@ public sealed class PlayerController : MonoBehaviour
 
     private InputAction _moveAction;
 
+    // unity functions
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -59,6 +60,8 @@ public sealed class PlayerController : MonoBehaviour
 
         _rigidbody.MovePosition(_rigidbody.position + _velocity * Time.fixedDeltaTime);
     }
+
+    // event handlers
 
     private void HandleMovement(InputAction.CallbackContext callbackContext)
     {
