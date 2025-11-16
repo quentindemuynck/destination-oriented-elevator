@@ -16,6 +16,7 @@ public class ControlPanel : MonoBehaviour
     // private
     private PanelButton button;
     private Floor _owningFloor; // the floor this controlPanel is on
+    private ElevatorDispatcher _elevatorDispatcher; // the elevator dispatcher this belongs to
 
     private bool _isPlayerInRange = false;
     private bool _isMenuOpened = false;
@@ -32,6 +33,15 @@ public class ControlPanel : MonoBehaviour
         UICanvas.gameObject.SetActive(_isMenuOpened);
     }
     // public functions
+
+    /// <summary>
+    /// Initializes the Panel
+    /// </summary>
+    public void Init(Floor owningFloor, ElevatorDispatcher dispatcher)
+    {
+        _elevatorDispatcher = dispatcher;
+        _owningFloor = owningFloor;
+    }
     
     /// <summary>
     /// Toggles the control panel ui menu
@@ -68,6 +78,7 @@ public class ControlPanel : MonoBehaviour
         if (player == null) return;
 
         player.ControlPanelInRange = null;
+        interactionText.gameObject.SetActive(false);
 
         // Safety
         OpenMenu(false);

@@ -30,7 +30,7 @@ public class ElevatorDispatcher : MonoBehaviour
     /// </summary>
     /// <param name="floor"> The destination floor that the requester intends to travel to.</param>
     /// <returns> The index of the floor</returns>
-    int RequestFloor(Floor requestedFloor, Floor currentFloor)
+    public int RequestFloor(Floor requestedFloor, Floor currentFloor)
     {
         ElevatorChoice elevatorChoice = GetOptimalElevator(requestedFloor, currentFloor);
         UpdateElevatorSchedule(requestedFloor, elevatorChoice);
@@ -56,6 +56,8 @@ public class ElevatorDispatcher : MonoBehaviour
     {
         foreach (var floor in floors)
         {
+            floor.ControlPanel.Init(floor, this);
+
             for (int i = 0; i < floors.Count; i++)
             {
                 // initialize button
@@ -73,11 +75,11 @@ public class ElevatorDispatcher : MonoBehaviour
                     Debug.LogError($"The button prefab: {floorButtonPrefab.name} needs a text component");
                 }
 
-                // subscribe to button event
+                // tell the button which floor it should go to
                 var panelButton = button.GetComponent<PanelButton>();
                 if (button != null)
                 {
-                    panelButton.RequestedFloor = floors[i];    
+                    panelButton.Init(floor, floors[i], this);  
                 }
                 else
                 {

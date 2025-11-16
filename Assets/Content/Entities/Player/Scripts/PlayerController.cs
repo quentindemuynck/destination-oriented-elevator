@@ -42,7 +42,7 @@ public sealed class PlayerController : MonoBehaviour
         _interactAction.Enable();
         _moveAction.performed += HandleMovement;
         _moveAction.canceled += HandleMovement;
-        _interactAction.performed += HandleInteract;
+        _interactAction.started += HandleInteract;
     }
 
     private void OnDisable()
@@ -51,7 +51,7 @@ public sealed class PlayerController : MonoBehaviour
         _interactAction.Disable();
         _moveAction.performed -= HandleMovement;
         _moveAction.canceled -= HandleMovement;
-        _interactAction.performed -= HandleInteract;
+        _interactAction.started -= HandleInteract;
     }
 
     private void FixedUpdate()
@@ -79,6 +79,7 @@ public sealed class PlayerController : MonoBehaviour
 
     private void HandleInteract(InputAction.CallbackContext callbackContext)
     {
+        Debug.Log("Interacted");
         if (ControlPanelInRange == null) return; // nothing to interact with
 
         ControlPanelInRange.ToggleMenuOpened();
