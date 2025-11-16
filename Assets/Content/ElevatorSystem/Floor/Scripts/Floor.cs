@@ -1,16 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Floor : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [Header("Config")]
+    [SerializeField] private ControlPanel controlPanel;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    // public
+
+    public ControlPanel ControlPanel => controlPanel;
 }

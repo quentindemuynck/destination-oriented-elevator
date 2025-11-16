@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
+using TMPro;
+using UnityEngine.UI;
 
 public class ElevatorDispatcher : MonoBehaviour
 {
@@ -7,7 +9,17 @@ public class ElevatorDispatcher : MonoBehaviour
     [SerializeField] private List<Elevator> elevators = new List<Elevator>();
     [SerializeField] private List<Floor> floors = new List<Floor>();
 
-    //private
+    [Header("Data")]
+    [SerializeField] private GameObject floorButtonPrefab;
+
+    // unity functions
+
+    private void Awake()
+    {
+        Debug.Assert(floorButtonPrefab != null, $"{name} needs a floorButtonPrefab");
+
+        InitializeFloors();
+    }
 
     // public functions
 
@@ -18,17 +30,17 @@ public class ElevatorDispatcher : MonoBehaviour
     /// </summary>
     /// <param name="floor"> The destination floor that the requester intends to travel to.</param>
     /// <returns> The index of the floor</returns>
-    int RequestFloor(Floor floor)
+    int RequestFloor(Floor requestedFloor, Floor currentFloor)
     {
-        ElevatorChoice elevatorChoice = GetOptimalElevator(floor);
-        UpdateElevatorSchedule(floor, elevatorChoice);
+        ElevatorChoice elevatorChoice = GetOptimalElevator(requestedFloor, currentFloor);
+        UpdateElevatorSchedule(requestedFloor, elevatorChoice);
 
         return elevatorChoice.ElevatorIndex;
     }
 
     // private functions
 
-    private ElevatorChoice GetOptimalElevator(Floor floor)
+    private ElevatorChoice GetOptimalElevator(Floor requestedFloor, Floor currentFloor)
     {
         ElevatorChoice elevator = new ElevatorChoice();
 
@@ -38,6 +50,42 @@ public class ElevatorDispatcher : MonoBehaviour
     private void UpdateElevatorSchedule(Floor floor, ElevatorChoice elevatorChoice)
     {
         elevatorChoice.Elevator.Schedule.Insert(elevatorChoice.InsertIndex, floor);
+    }
+
+    private void InitializeFloors()
+    {
+        foreach (var floor in floors)
+        {
+            for (int i = 0; i < floors.Count; i++)
+            {
+                // initialize button
+                GameObject button = Instantiate(floorButtonPrefab);
+                button.transform.SetParent(floor.ControlPanel.ButtonGrid.transform, false);
+
+                // set text
+                var text = button.GetComponentInChildren<TMP_Text>(true);
+                if (text != null)
+                {
+                    text.text = i.ToString();
+                }
+                else
+                {
+                    Debug.LogError($"The button prefab: {floorButtonPrefab.name} needs a text component");
+                }
+
+                // subscribe to button event
+                var panelButton = button.GetComponent<PanelButton>();
+                if (button != null)
+                {
+                    panelButton.RequestedFloor = floors[i];    
+                }
+                else
+                {
+                    Debug.LogError($"The button prefab: {floorButtonPrefab.name} needs a button component");
+                }
+
+            }
+        }
     }
 
     // structs

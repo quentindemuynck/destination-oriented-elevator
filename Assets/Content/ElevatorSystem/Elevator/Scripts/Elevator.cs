@@ -14,6 +14,9 @@ public class Elevator : MonoBehaviour
     private Floor _currentFloor = null;
     private Direction _elevatorDirection;
 
+    // const
+    public const float WAIT_TIME_AT_FLOOR = 5f;
+
     // structs
     public enum Direction
     {
