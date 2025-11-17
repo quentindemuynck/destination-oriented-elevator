@@ -18,7 +18,6 @@ public class ControlPanel : MonoBehaviour
     private Floor _owningFloor; // the floor this controlPanel is on
     private ElevatorDispatcher _elevatorDispatcher; // the elevator dispatcher this belongs to
 
-    private bool _isPlayerInRange = false;
     private bool _isMenuOpened = false;
 
 

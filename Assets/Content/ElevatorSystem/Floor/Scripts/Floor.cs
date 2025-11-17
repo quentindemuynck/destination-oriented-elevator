@@ -9,5 +9,6 @@ public class Floor : MonoBehaviour
 
     // public
 
+    public Transform ElevatorStoppingHeight => elevatorStoppingHeight;
     public ControlPanel ControlPanel => controlPanel;
 }

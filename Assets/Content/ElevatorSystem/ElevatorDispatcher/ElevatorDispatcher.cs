@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
+using System.Linq;
 
 public class ElevatorDispatcher : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class ElevatorDispatcher : MonoBehaviour
         Debug.Assert(floorButtonPrefab != null, $"{name} needs a floorButtonPrefab");
 
         InitializeFloors();
+        InitializeElevators();
     }
 
     // public functions
@@ -42,14 +44,17 @@ public class ElevatorDispatcher : MonoBehaviour
 
     private ElevatorChoice GetOptimalElevator(Floor requestedFloor, Floor currentFloor)
     {
-        ElevatorChoice elevator = new ElevatorChoice();
+        ElevatorChoice elevatorChoice = new ElevatorChoice();
+        elevatorChoice.Elevator = elevators.First();
+        elevatorChoice.InsertIndex = elevatorChoice.Elevator.Schedule.Count;
+        elevatorChoice.ElevatorIndex = 0;
 
-        return elevator;
+        return elevatorChoice;
     }
 
     private void UpdateElevatorSchedule(Floor floor, ElevatorChoice elevatorChoice)
     {
-        elevatorChoice.Elevator.Schedule.Insert(elevatorChoice.InsertIndex, floor);
+        elevatorChoice.Elevator.AddToSchedule(floor, elevatorChoice.InsertIndex);
     }
 
     private void InitializeFloors()
@@ -87,6 +92,17 @@ public class ElevatorDispatcher : MonoBehaviour
                 }
 
             }
+        }
+    }
+
+    private void InitializeElevators()
+    {
+        if ( floors.Count == 0 ) return; 
+        foreach (var elevator in elevators)
+        {
+            Vector3 pos = elevator.transform.position;
+            pos.y = floors.First().ElevatorStoppingHeight.position.y;
+            elevator.transform.position = pos;
         }
     }
 
