@@ -143,6 +143,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 520509997}
     m_Modifications:
+    - target: {fileID: 2944365981297599428, guid: e60664eea9c9b0f40bd969061632fbe0, type: 3}
+      propertyPath: maxSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2944365981297599428, guid: e60664eea9c9b0f40bd969061632fbe0, type: 3}
+      propertyPath: acceleration
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5221201917601854191, guid: e60664eea9c9b0f40bd969061632fbe0, type: 3}
       propertyPath: m_Name
       value: Elevator (3)
@@ -816,6 +824,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5985370492243768172, guid: cf53d3342a85966468cfaca0d14960f6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8953846094562835036, guid: cf53d3342a85966468cfaca0d14960f6, type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8953846094562835036, guid: cf53d3342a85966468cfaca0d14960f6, type: 3}
+      propertyPath: m_IsKinematic
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

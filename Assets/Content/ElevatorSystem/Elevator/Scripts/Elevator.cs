@@ -97,7 +97,7 @@ public class Elevator : MonoBehaviour
         float deltaY = targetY - position.y; // difference in height
            
         // prevent floating point mistakes
-        const float positionEpsilon = 0.2f;
+        const float positionEpsilon = 0.01f;
 
         if (Mathf.Abs(deltaY) < positionEpsilon)
         {

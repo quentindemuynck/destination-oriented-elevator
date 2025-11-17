@@ -157,8 +157,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4005b7dce5a20bf4cb9f03675738f2b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Elevator
-  acceleration: 20
-  maxSpeed: 10
+  acceleration: 5
+  maxSpeed: 20
 --- !u!54 &5079178749600153765
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -182,7 +182,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
